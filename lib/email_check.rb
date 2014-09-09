@@ -16,6 +16,7 @@ class EmailCheck < Net::SMTP
         551 => :dunno,        # User not local; please try <forward-path>
         552 => :valid,        # Requested mail action aborted:, exceeded storage allocation
         553 => :invalid,      # Requested action not taken:, mailbox name not allowed
+        554 => :valid_fails,  # ESMTP Service not available with this server
         450 => :valid_fails,  # Requested mail action not taken:, mailbox unavailable
         451 => :valid_fails,  # Requested action aborted:, local error in processing
         452 => :valid_fails,  # Requested action not taken:, insufficient system storage
@@ -23,7 +24,8 @@ class EmailCheck < Net::SMTP
         501 => :invalid,      # Syntax error in parameters or arguments
         503 => :fail,         # Bad sequence of commands
         521 => :invalid,      # <domain> does not accept mail [rfc1846]
-        421 => :fail,         # <domain> Service not available, closing transmission channel
+        #421 => :fail,         # <domain> Service not available, closing transmission channel
+        421 => :valid_fails,  # <domain> Service not available or "edge Policy violation. Your host <ip> has no valid Reverse DNS."
       }
     end
 
